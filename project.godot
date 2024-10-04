@@ -11,8 +11,18 @@ config_version=5
 [application]
 
 config/name="Rummikub-Game"
+run/main_scene="res://scenes/settings/settings.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1024
+window/size/viewport_height=576
+
+[dotnet]
+
+project/assembly_name="Rummikub-Game"
 
 [rendering]
 
