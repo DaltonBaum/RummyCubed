@@ -44,13 +44,6 @@ z_index = 4
 layout_mode = 2
 text = "Credits"
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = -558.0
-offset_top = -158.0
-offset_right = 548.0
-offset_bottom = 441.0
-
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
