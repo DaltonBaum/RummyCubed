@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cfbcmp5fte3lt"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1024.0
+offset_bottom = 576.0
+color = Color(0.866667, 0.858824, 0.796078, 1)
+
+[node name="Rules" type="Button" parent="."]
+offset_left = 455.0
+offset_top = 96.0
+offset_right = 555.0
+offset_bottom = 146.0
+text = "Rules"
+
+[node name="Back-Button" type="Button" parent="."]
+offset_left = 890.0
+offset_top = 25.0
+offset_right = 990.0
+offset_bottom = 75.0
+text = "Back"
+
+[node name="Music" type="HSlider" parent="."]
+offset_left = 300.0
+offset_top = 200.0
+offset_right = 700.0
+offset_bottom = 350.0
+
+[node name="Music-Label" type="Label" parent="Music"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 176.0
+offset_top = 125.0
+offset_right = 222.0
+offset_bottom = 148.0
+text = "Music
+"
+horizontal_alignment = 1
+
+[node name="SFX" type="HSlider" parent="."]
+offset_left = 300.0
+offset_top = 350.0
+offset_right = 700.0
+offset_bottom = 500.0
+
+[node name="SFX-Label" type="Label" parent="SFX"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 176.0
+offset_top = 124.0
+offset_right = 222.0
+offset_bottom = 147.0
+text = "SFX
+"
+horizontal_alignment = 1
