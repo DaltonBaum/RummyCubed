@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://x6to6ffx8ukv"]
 
-[node name="How-To-Play" type="Node2D"]
+[node name="How-To-Play" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 1024.0

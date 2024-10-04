@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cfbcmp5fte3lt"]
 
-[node name="Settings" type="Node2D"]
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 1024.0
@@ -29,6 +31,7 @@ offset_bottom = 350.0
 
 [node name="Music-Label" type="Label" parent="Music"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 176.0
 offset_top = 125.0
 offset_right = 222.0
@@ -45,6 +48,7 @@ offset_bottom = 500.0
 
 [node name="SFX-Label" type="Label" parent="SFX"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 176.0
 offset_top = 124.0
 offset_right = 222.0
