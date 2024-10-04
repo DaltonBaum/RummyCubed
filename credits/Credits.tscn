@@ -1,0 +1,115 @@
+[gd_scene load_steps=4 format=3 uid="uid://dh3rj1bjap0oi"]
+
+[ext_resource type="Script" path="res://credits/credits.gd" id="1_dvwg7"]
+[ext_resource type="Texture2D" uid="uid://rcuax65a3mcc" path="res://textures/Placeholder_Background.jpg" id="2_s57uy"]
+
+[sub_resource type="Theme" id="Theme_m338c"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dvwg7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(578, 324.5)
+scale = Vector2(1.37981, 1.775)
+texture = ExtResource("2_s57uy")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -611.0
+offset_top = -144.0
+offset_right = -235.0
+offset_bottom = 331.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Credits: 
+
+	Developers: 
+			Garrett Thompson
+			Dalton Baum
+			Austin Damek
+			Hayden Schneider
+"
+editable = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 933.0
+offset_top = 45.0
+offset_right = 1105.0
+offset_bottom = 106.0
+theme = SubResource("Theme_m338c")
+text = "Back"
+icon_alignment = 1
+
+[node name="Credits_Label" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.308
+anchor_bottom = 0.334
+offset_left = 439.0
+offset_top = 54.0
+offset_right = 358.184
+offset_bottom = -52.432
+theme_override_font_sizes/font_size = 80
+text = "Credits"
+
+[node name="Developer_Label" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.308
+anchor_bottom = 0.334
+offset_left = 489.0
+offset_top = 200.0
+offset_right = 297.184
+offset_bottom = 25.568
+pivot_offset = Vector2(-23, 9)
+theme_override_font_sizes/font_size = 30
+text = "Developers"
+
+[node name="Names" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.5
+offset_top = -60.5
+offset_right = 89.5
+offset_bottom = 60.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Garrett Thompson
+Dalton Baum
+Austin Damek
+Hayden Schneider"
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
