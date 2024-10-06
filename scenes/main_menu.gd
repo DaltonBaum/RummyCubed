@@ -12,12 +12,12 @@ func _process(delta: float) -> void:
 
 
 func _on_play_button_pressed() -> void:
-	pass # Change scene to board scene
+	get_tree().change_scene_to_file("res://scenes/difficulty_menu.tscn")
 
 
 func _on_settings_button_pressed() -> void:
-	pass # Go to settings scene.
+	get_tree().change_scene_to_file("res://scenes/settings.tscn")
 
 
 func _on_credits_button_pressed() -> void:
-	pass # Go to credits scene.
+	get_tree().change_scene_to_file("res://scenes/Credits.tscn")
