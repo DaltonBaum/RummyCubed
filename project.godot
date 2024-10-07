@@ -11,10 +11,7 @@ config_version=5
 [application]
 
 config/name="Rummikub-Game"
-
 run/main_scene="res://scenes/main_menu.tscn"
-
-
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 

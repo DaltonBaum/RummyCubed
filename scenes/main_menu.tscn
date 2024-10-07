@@ -1,46 +1,50 @@
-[gd_scene load_steps=2 format=3 uid="uid://dua434ibuxywe"]
+[gd_scene load_steps=3 format=3 uid="uid://dua434ibuxywe"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_4ojtk"]
+[ext_resource type="Theme" uid="uid://bcvdwe3x3sw4" path="res://ui_theme.tres" id="1_s42cl"]
 
 [node name="MainMenu" type="Control"]
-modulate = Color(1, 0.417312, 0.492562, 1)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = -4.0
-offset_right = 6.0
-offset_bottom = -4.0
+offset_top = 11.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_s42cl")
 script = ExtResource("1_4ojtk")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -10.0
+offset_right = 1029.0
+offset_bottom = 568.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-z_index = 3
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.449
-anchor_top = -0.302
-anchor_right = -0.449
-anchor_bottom = -0.302
-offset_left = 459.776
-offset_top = 644.952
-offset_right = 723.776
-offset_bottom = 753.952
+layout_mode = 0
+offset_left = 233.0
+offset_top = -11.0
+offset_right = 788.0
+offset_bottom = 568.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Rummikub-Puzzle"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]
-z_index = 4
 layout_mode = 2
 text = "Play"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
-z_index = 4
 layout_mode = 2
 text = "Settings"
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer"]
-z_index = 4
 layout_mode = 2
 text = "Credits"
 
