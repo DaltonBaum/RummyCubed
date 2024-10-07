@@ -32,6 +32,7 @@ offset_left = 1.0
 offset_top = -6.0
 offset_right = 1029.0
 offset_bottom = 580.0
+color = Color(0.92549, 0.886275, 0.815686, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -58,6 +59,7 @@ horizontal_alignment = 1
 [node name="Names" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0.937255, 1, 0)
 theme_override_font_sizes/font_size = 20
 text = "Garrett Thompson
 Dalton Baum

@@ -1,15 +1,20 @@
-[gd_scene format=3 uid="uid://cfbcmp5fte3lt"]
+[gd_scene load_steps=2 format=3 uid="uid://cfbcmp5fte3lt"]
+
+[ext_resource type="Script" path="res://scenes/settings.gd" id="1_60sx1"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_60sx1")
 
 [node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1024.0
 offset_bottom = 576.0
 color = Color(0.866667, 0.858824, 0.796078, 1)
 
 [node name="Rules" type="Button" parent="."]
+layout_mode = 0
 offset_left = 455.0
 offset_top = 96.0
 offset_right = 555.0
@@ -17,6 +22,7 @@ offset_bottom = 146.0
 text = "Rules"
 
 [node name="Back-Button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 890.0
 offset_top = 25.0
 offset_right = 990.0
@@ -24,6 +30,7 @@ offset_bottom = 75.0
 text = "Back"
 
 [node name="Music" type="HSlider" parent="."]
+layout_mode = 0
 offset_left = 300.0
 offset_top = 200.0
 offset_right = 700.0
@@ -41,6 +48,7 @@ text = "Music
 horizontal_alignment = 1
 
 [node name="SFX" type="HSlider" parent="."]
+layout_mode = 0
 offset_left = 300.0
 offset_top = 350.0
 offset_right = 700.0
@@ -56,3 +64,6 @@ offset_bottom = 147.0
 text = "SFX
 "
 horizontal_alignment = 1
+
+[connection signal="pressed" from="Rules" to="." method="_on_rules_pressed"]
+[connection signal="pressed" from="Back-Button" to="." method="_on_back_button_pressed"]

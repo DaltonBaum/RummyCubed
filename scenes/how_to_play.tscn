@@ -1,17 +1,22 @@
-[gd_scene format=3 uid="uid://x6to6ffx8ukv"]
+[gd_scene load_steps=2 format=3 uid="uid://x6to6ffx8ukv"]
+
+[ext_resource type="Script" path="res://scenes/how_to_play.gd" id="1_mlj0j"]
 
 [node name="How-To-Play" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_mlj0j")
 
 [node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1024.0
 offset_bottom = 576.0
 color = Color(0.866667, 0.858824, 0.796078, 1)
 
 [node name="Back-Button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 462.0
 offset_top = 450.0
 offset_right = 562.0
@@ -19,6 +24,7 @@ offset_bottom = 500.0
 text = "Back"
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 262.0
 offset_top = 100.0
 offset_right = 762.0
@@ -29,3 +35,5 @@ text = "You will be provided with a nearly complete rummikub board game with til
 Good Luck!"
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[connection signal="pressed" from="Back-Button" to="." method="_on_back_button_pressed"]
