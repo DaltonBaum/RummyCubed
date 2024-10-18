@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cnn2jdt1gnavg"]
+
+[node name="MusicSlide" type="HSlider"]
+offset_left = 304.0
+offset_top = 282.0
+offset_right = 704.0
+offset_bottom = 432.0
+
+[node name="Music-Label" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 176.0
+offset_top = 125.0
+offset_right = 222.0
+offset_bottom = 148.0
+text = "Music
+"
+horizontal_alignment = 1

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://rjfdjyq0d734"]
+[gd_scene load_steps=3 format=3 uid="uid://dsa8jptemtn63"]
 
-[ext_resource type="Theme" uid="uid://bcvdwe3x3sw4" path="res://ui_theme.tres" id="1_rgyda"]
+[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://ui_theme.tres" id="1_rgyda"]
+[ext_resource type="Script" path="res://scenes/pause_menu.gd" id="2_qq1io"]
 
 [node name="PauseMenu" type="ColorRect"]
 anchors_preset = 15
@@ -10,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rgyda")
 color = Color(0.92549, 0.886275, 0.815686, 1)
+script = ExtResource("2_qq1io")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -55,3 +57,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Exit"
 clip_text = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
