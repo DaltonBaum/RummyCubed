@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfbcmp5fte3lt"]
+[gd_scene load_steps=5 format=3 uid="uid://cfbcmp5fte3lt"]
 
 [ext_resource type="Script" path="res://scenes/settings.gd" id="1_60sx1"]
+[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://ui_theme.tres" id="1_u4vti"]
 [ext_resource type="Script" path="res://scenes/volume_slider.gd" id="2_1y31e"]
 
 [sub_resource type="GDScript" id="GDScript_crjvj"]
@@ -22,93 +23,94 @@ func _on_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
 "
 
-[node name="Settings" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="Settings" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_u4vti")
+color = Color(0.92549, 0.886275, 0.815686, 1)
 script = ExtResource("1_60sx1")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-z_index = -1
-layout_mode = 0
-offset_right = 1020.0
-offset_bottom = 575.0
-color = Color(0.92549, 0.886275, 0.815686, 1)
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="RulesButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 418.0
-offset_top = 77.0
-offset_right = 584.0
-offset_bottom = 159.0
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RulesButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
 text = "Rules"
 
-[node name="BackButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 848.0
-offset_top = 34.0
-offset_right = 983.0
-offset_bottom = 101.0
-text = "Back"
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
 
-[node name="MasterSlide" type="HSlider" parent="."]
-layout_mode = 0
-offset_left = 304.0
-offset_top = 159.0
-offset_right = 704.0
-offset_bottom = 309.0
+[node name="Master-Label" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 32
+text = "Master
+"
+
+[node name="MasterSlide" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 script = ExtResource("2_1y31e")
 bus_name = "Master"
 
-[node name="Master-Label" type="Label" parent="MasterSlide"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 176.0
-offset_top = 125.0
-offset_right = 222.0
-offset_bottom = 148.0
-text = "Master
+[node name="Music-Label" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 32
+text = "Music
 "
-horizontal_alignment = 1
 
-[node name="MusicSlide" type="HSlider" parent="."]
-layout_mode = 0
-offset_left = 304.0
-offset_top = 282.0
-offset_right = 704.0
-offset_bottom = 432.0
+[node name="MusicSlide" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 script = ExtResource("2_1y31e")
 bus_name = "Music"
 
-[node name="Music-Label" type="Label" parent="MusicSlide"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 176.0
-offset_top = 125.0
-offset_right = 222.0
-offset_bottom = 148.0
-text = "Music
+[node name="SFX-Label" type="Label" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 32
+text = "SFX
 "
-horizontal_alignment = 1
 
-[node name="SFXSlide" type="HSlider" parent="."]
-layout_mode = 0
-offset_left = 304.0
-offset_top = 379.0
-offset_right = 704.0
-offset_bottom = 529.0
+[node name="SFXSlide" type="HSlider" parent="MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 script = SubResource("GDScript_crjvj")
 bus_name = "SFX"
 
-[node name="SFX-Label" type="Label" parent="SFXSlide"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 176.0
-offset_top = 124.0
-offset_right = 222.0
-offset_bottom = 147.0
-text = "SFX
-"
-horizontal_alignment = 1
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
 
-[connection signal="pressed" from="RulesButton" to="." method="_on_rules_button_pressed"]
-[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/RulesButton" to="." method="_on_rules_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
