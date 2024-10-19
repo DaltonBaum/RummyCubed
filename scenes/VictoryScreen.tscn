@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://crr5a1p5q2d88"]
 
-[ext_resource type="Script" path="res://victory/victory_screen.gd" id="1_au4wu"]
+[ext_resource type="Script" path="res://scenes/victory_screen.gd" id="1_au4wu"]
 
 [node name="Victory Screen" type="Control"]
 layout_mode = 3
@@ -56,9 +56,9 @@ text = "Continue
 [node name="Exit" type="Button" parent="."]
 layout_mode = 0
 offset_left = 674.0
-offset_top = 455.0
+offset_top = 381.0
 offset_right = 874.0
-offset_bottom = 540.0
+offset_bottom = 466.0
 text = "Exit"
 
 [connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]

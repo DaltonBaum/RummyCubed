@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dp75j301cfcrd"]
 
-[ext_resource type="Theme" uid="uid://bcvdwe3x3sw4" path="res://ui_theme.tres" id="1_vp7qb"]
+[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://ui_theme.tres" id="1_vp7qb"]
 [ext_resource type="Script" path="res://scenes/difficulty_menu.gd" id="2_6wn2m"]
 
 [node name="DifficultyMenu" type="ColorRect"]
