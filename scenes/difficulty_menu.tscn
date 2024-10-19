@@ -36,25 +36,21 @@ layout_mode = 2
 
 [node name="EasyButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 text = "Easy"
 clip_text = true
 
 [node name="MediumButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 text = "Medium"
 clip_text = true
 
 [node name="HardButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 text = "Hard"
 clip_text = true
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_bottom = 0
 

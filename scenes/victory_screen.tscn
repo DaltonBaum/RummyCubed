@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://crr5a1p5q2d88"]
+
+[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://ui_theme.tres" id="1_sar6t"]
+[ext_resource type="Script" path="res://scenes/victory_screen.gd" id="2_nbb0t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oeysk"]
+
+[node name="Victory Screen" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sar6t")
+color = Color(0.92549, 0.886275, 0.815686, 1)
+script = ExtResource("2_nbb0t")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Well done!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "You have completed the puzzle!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_oeysk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayAgain" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Play Again"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Exit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/PlayAgain" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Exit" to="." method="_on_exit_pressed"]
