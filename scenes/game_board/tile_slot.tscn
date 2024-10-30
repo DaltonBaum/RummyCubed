@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://btjm3hc8rsip8"]
+
+[ext_resource type="Script" path="res://scenes/game_board/tile_slot.gd" id="1_vvoty"]
+
+[node name="TileSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(30, 50)
+offset_right = 30.0
+offset_bottom = 50.0
+script = ExtResource("1_vvoty")

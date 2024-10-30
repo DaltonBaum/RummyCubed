@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://deju5e7gik6gr"]
+
+[ext_resource type="PackedScene" uid="uid://dxu64ad742ahl" path="res://scenes/game_board/board.tscn" id="1_sxlji"]
+
+[node name="Game" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Board" parent="CanvasLayer" instance=ExtResource("1_sxlji")]
+
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer"]

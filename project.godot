@@ -29,3 +29,4 @@ project/assembly_name="Rummikub-Game"
 [rendering]
 
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0.92549, 0.886275, 0.815686, 1)
