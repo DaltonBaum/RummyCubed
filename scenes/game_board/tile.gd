@@ -22,8 +22,9 @@ func make_drag_preview() -> Control:
 	var tile := tile_scene.instantiate()
 	tile.update_info(info)
 	tile.modulate.a = 0.9
-	tile.size = Vector2(36, 60)
-	tile.position = -0.5 * tile.size
+var tile_size := size * 6 / 5
+	tile.set_deferred("size", tile_size)
+	tile.position = (-0.5 * tile_size)
 	
 	var c := Control.new()
 	c.add_child(tile)
