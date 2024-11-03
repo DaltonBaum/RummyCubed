@@ -1,13 +1,11 @@
 extends PanelContainer
 
 
-func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
-	return true
-	
-func _drop_data(at_position: Vector2, data: Variant) -> void:
-	while get_child_count() > 0:
-		var item := get_child(0)
-		if data == item:
-			return
-		item.reparent(data.get_parent())
-	data.reparent(self)
+func _ready() -> void:
+	DragManager.drag_ended.connect(_on_drag_end)
+
+func _on_drag_end(pos: Vector2, node: Node, parent: Node) -> void:
+	if get_global_rect().has_point(pos):
+		for child in get_children():
+			child.reparent(parent)
+		node.reparent(self)

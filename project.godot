@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DragManager="*res://autoloads/drag_manager.gd"
+
 [display]
 
 window/size/viewport_width=1080
@@ -25,6 +29,11 @@ window/size/window_height_override=810
 [dotnet]
 
 project/assembly_name="Rummikub-Game"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+pointing/emulate_mouse_from_touch=false
 
 [rendering]
 

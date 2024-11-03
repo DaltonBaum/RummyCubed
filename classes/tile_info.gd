@@ -1,5 +1,4 @@
 class_name TileInfo
-extends Resource
 
 enum Colors {
 	RED,
