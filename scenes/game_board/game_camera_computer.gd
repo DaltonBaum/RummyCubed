@@ -5,7 +5,6 @@ extends Camera2D
 @export var min_zoom: float = 0.5
 @export var zoom_speed: float = 0.9
 
-@export var pan_margin: int = 0
 @export var pan_speed: float = 50.0
 
 func _ready() -> void:
