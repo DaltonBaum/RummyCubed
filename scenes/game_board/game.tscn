@@ -1,11 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://deju5e7gik6gr"]
+[gd_scene load_steps=3 format=3 uid="uid://cnh6nuvbcs8wn"]
 
 [ext_resource type="PackedScene" uid="uid://dxu64ad742ahl" path="res://scenes/game_board/board.tscn" id="1_sxlji"]
+[ext_resource type="Script" path="res://scenes/game_board/game_camera_computer.gd" id="2_t2rl8"]
 
 [node name="Game" type="Node2D"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Board" parent="." instance=ExtResource("1_sxlji")]
 
-[node name="Board" parent="CanvasLayer" instance=ExtResource("1_sxlji")]
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_t2rl8")
 
-[node name="Camera2D" type="Camera2D" parent="CanvasLayer"]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+text = "TIMER OR SOMETHING"
+
+[node name="HSeparator" type="HSeparator" parent="UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+text = "PAUSE OR SOMETHING"
