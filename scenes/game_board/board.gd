@@ -12,7 +12,6 @@ func _ready() -> void:
 	
 	var a: Array[Array] = []
 	for c in TileInfo.Colors.values():
-		print(c)
 		var b: Array[TileInfo] = []
 		for i in range(1, 14):
 			b.append(TileInfo.new(i, c))
