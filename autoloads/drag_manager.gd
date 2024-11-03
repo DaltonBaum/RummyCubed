@@ -4,6 +4,8 @@ signal drag_started
 signal drag_ended
 
 var holder := Marker2D.new()
+var holder_target := Vector2.ZERO
+var holder_delay := 25
 
 var _active_touches := {}
 var _current_node: Node = null
@@ -12,9 +14,14 @@ var _current_parent: Node = null
 func _ready() -> void:
 	add_child(holder)
 
+func _process(delta: float) -> void:
+	if _current_node != null:
+		var tween := get_tree().create_tween()
+		tween.tween_property(holder, "position", holder_target, holder_delay * delta)
+
 func _input(event):
-	if event is InputEventScreenDrag:
-		holder.position = _get_pos_with_camera(event.position)
+	if event is InputEventScreenDrag and _current_node != null:
+		holder_target = _get_pos_with_camera(event.position)
 
 	if event is InputEventScreenTouch:
 		if event.pressed:
@@ -34,6 +41,7 @@ func set_current_node(node: Node) -> void:
 	_current_node = node
 	_current_parent = _current_node.get_parent()
 	holder.position = _current_node.get_global_rect().get_center()
+	holder_target = holder.position
 	_current_node.reparent(holder)
 
 func _on_drag_end(pos: Vector2) -> void:

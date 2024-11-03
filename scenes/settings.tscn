@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cfbcmp5fte3lt"]
 
 [ext_resource type="Script" path="res://scenes/settings.gd" id="1_60sx1"]
-[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://ui_theme.tres" id="1_u4vti"]
+[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://resources/ui_theme.tres" id="1_u4vti"]
 [ext_resource type="Script" path="res://scenes/volume_slider.gd" id="2_1y31e"]
 
 [sub_resource type="GDScript" id="GDScript_crjvj"]

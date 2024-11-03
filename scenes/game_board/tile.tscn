@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://8drnf66pl2aw"]
+[gd_scene load_steps=3 format=3 uid="uid://8drnf66pl2aw"]
 
 [ext_resource type="Script" path="res://scenes/game_board/tile.gd" id="1_i0mw5"]
+[ext_resource type="Theme" uid="uid://c6wrhsu8m37jx" path="res://resources/tiles/tile.tres" id="1_oyo3d"]
 
 [node name="Tile" type="PanelContainer"]
 anchors_preset = 15
@@ -8,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+theme = ExtResource("1_oyo3d")
 script = ExtResource("1_i0mw5")
 
 [node name="Label" type="Label" parent="."]
