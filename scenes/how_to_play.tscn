@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://x6to6ffx8ukv"]
 
-[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://resources/ui_theme.tres" id="1_jd5hw"]
+[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://ui_theme.tres" id="1_jd5hw"]
 [ext_resource type="Script" path="res://scenes/how_to_play.gd" id="1_mlj0j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrq13"]

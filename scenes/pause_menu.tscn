@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dsa8jptemtn63"]
 
-[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://resources/ui_theme.tres" id="1_rgyda"]
+[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://ui_theme.tres" id="1_rgyda"]
 [ext_resource type="Script" path="res://scenes/pause_menu.gd" id="2_qq1io"]
 
 [node name="PauseMenu" type="ColorRect"]
