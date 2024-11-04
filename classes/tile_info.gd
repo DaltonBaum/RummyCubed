@@ -11,7 +11,13 @@ const _color_dict = {
 	Colors.RED: Color(0.8, 0, 0),
 	Colors.BLUE: Color(0, 0, 0.8),
 	Colors.BLACK: Color(0, 0, 0),
-	Colors.GREEN: Color(0, 0.8, 0)
+	Colors.GREEN: Color(0, 0.5, 0)
+}
+
+enum Relations {
+	INVALID,
+	SET,
+	RUN
 }
 
 @export_range(1, 13) var num: int

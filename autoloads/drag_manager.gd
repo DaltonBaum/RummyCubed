@@ -15,12 +15,12 @@ func _ready() -> void:
 	add_child(holder)
 
 func _process(delta: float) -> void:
-	if _current_node != null:
+	if is_currently_dragging():
 		var tween := get_tree().create_tween()
 		tween.tween_property(holder, "position", holder_target, holder_delay * delta)
 
 func _input(event):
-	if event is InputEventScreenDrag and _current_node != null:
+	if event is InputEventScreenDrag and is_currently_dragging():
 		holder_target = _get_pos_with_camera(event.position)
 
 	if event is InputEventScreenTouch:
@@ -61,3 +61,6 @@ func _reset_current() -> void:
 
 func _get_pos_with_camera(pos: Vector2) -> Vector2:
 	return get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * pos
+
+func is_currently_dragging() -> bool:
+	return _current_node != null

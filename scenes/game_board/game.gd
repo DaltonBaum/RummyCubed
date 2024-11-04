@@ -1,6 +1,6 @@
 extends Node2D
 
-@export_range(0, 100) var camera_bounds_percent := 50
+@export_range(0, 100) var camera_bounds_percent := 25
 
 func _ready() -> void:
 	var board_pos: Vector2 = %Board.global_position

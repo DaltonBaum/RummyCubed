@@ -5,7 +5,7 @@
 
 [node name="TileSlot" type="PanelContainer"]
 z_index = -1
-custom_minimum_size = Vector2(30, 50)
+custom_minimum_size = Vector2(120, 200)
 offset_right = 30.0
 offset_bottom = 50.0
 theme = ExtResource("1_rqpwq")
