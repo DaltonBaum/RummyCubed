@@ -22,10 +22,15 @@ enum Relations {
 
 @export_range(1, 13) var num: int
 @export var color: Colors
+@export var deck: int
 
-func _init(n: int, c: Colors):
+func _init(n: int, c: Colors, d: int):
 	num = n
 	color = c
+	deck = d
 
 func get_color():
 	return _color_dict[color]
+
+func same(other) -> bool:
+	return self.num == other.num and self.color == other.color

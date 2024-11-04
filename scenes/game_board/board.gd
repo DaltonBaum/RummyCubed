@@ -7,6 +7,20 @@ var tile_slot_scene := preload("res://scenes/game_board/tile_slot.tscn")
 
 var invalid_tiles := {}
 var board_valid := false
+var max_tries := 50
+
+enum Colors {
+	RED,
+	BLUE,
+	BLACK,
+	GREEN
+}
+
+enum Relations { 
+	STRAIGHT, 
+	MATCH, 
+	NONE 
+}
 
 func _ready() -> void:
 	columns = grid_width
@@ -17,18 +31,26 @@ func _ready() -> void:
 		tile_slot.tile_removed.connect(_tile_removed)
 		add_child(tile_slot)
 	
-	# Dummy tiles
-	var a: Array[Array] = []
-	for c in TileInfo.Colors.values():
-		var b: Array[TileInfo] = []
-		for i in range(1, 14):
-			b.append(TileInfo.new(i, c))
-		a.append(b)
-		a.append(b)
-	add_tile_groups(a)
+	## Dummy tiles
+	#var a: Array[Array] = []
+	#for c in TileInfo.Colors.values():
+		#var b: Array[TileInfo] = []
+		#for i in range(1, 14):
+			#b.append(TileInfo.new(i, c))
+		#a.append(b)
+		#a.append(b)
+	#add_tile_groups(a)
+	var g = create_graph(13, 2, Colors.values())
+	var puzzle = select_tiles(g, 50)
+	var sum = 0
+	for arr in puzzle:
+		for value in arr:
+			sum += 1
+	print(sum)
+	add_tile_groups(puzzle)
 
 # Method to call to place starting state on the board
-func add_tile_groups(groups: Array[Array]):
+func add_tile_groups(groups: Array):
 	var row := 0
 	var column := 0
 	for group in groups:
@@ -125,4 +147,116 @@ func _check_board() -> void:
 	print("Valid Board")
 	#get_tree().change_scene_to_file("res://scenes/credits.tscn")
 	#board_valid = true
-	
+
+
+func create_graph(nums: int, decks: int, colors: Array) -> Dictionary:
+	var g = {}
+	for num in range(1, nums + 1):
+		for color in colors:
+			for deck in range(0, decks):
+				var tile = TileInfo.new(num, color, deck)
+				g[tile] = { "relation": Relations.NONE, "connections": [] }
+	connect_graph(g)
+	return g
+
+# Connects nodes in the graph based on tile properties
+func connect_graph(g: Dictionary) -> void:
+	for node in g.keys():
+		for node2 in g.keys():
+			if node.same(node2):
+				continue
+			if node.color == node2.color and abs(node.num - node2.num) == 1 and node.deck == node2.deck:
+				g[node]["connections"].append({"node": node2, "relation": Relations.STRAIGHT})
+			elif node.num == node2.num and node.deck == node2.deck:
+				g[node]["connections"].append({"node": node2, "relation": Relations.MATCH})
+
+
+# Random selection of tiles and groups to generate valid board state
+func select_tiles(g: Dictionary, count: int) -> Array:
+	var chosen_numbers_decks = []
+	var board = []
+	while count != 0:
+		if count > 3:
+			var match_or_straight = randi_range(0, 1)
+			if match_or_straight == 0:
+				var match_array = []
+				var tile_num = randi_range(1, 13)
+				var deck_num = randi_range(0,1)
+				var random_color = randi_range(0,3)
+				var random_match_size = randi_range(2,3)
+				while ({"tile_num": tile_num, "deck_num": deck_num}) in chosen_numbers_decks:
+					tile_num = randi_range(1, 13)
+					deck_num = randi_range(0,1)
+				chosen_numbers_decks.append({"tile_num": tile_num, "deck_num": deck_num})
+				for tile in g:
+					if tile.num == tile_num && tile.deck == deck_num && tile.color == random_color:
+						for conn in g[tile]["connections"]:
+							if conn["relation"] == Relations.MATCH:
+								match_array.append(conn["node"])
+								if match_array.size() == random_match_size:
+									break
+						match_array.append(tile)
+						break
+				board.append(match_array)
+				count -= random_match_size + 1
+			elif match_or_straight == 1:
+				print("attempting")
+				var straight_array = []
+				var tries = 0
+				var success = false
+				var rand_straight_len = randi_range(3, 12)
+				var rand_color = randi_range(0,3)
+				var tile_num = randi_range(1,13)
+				var deck_num = randi_range(0,1)
+				while success == false:
+					if tries == max_tries:
+						break
+					while ({"tile_num": tile_num, "deck_num": deck_num}) in chosen_numbers_decks:
+						tile_num = randi_range(1, 13)
+						deck_num = randi_range(0,1)
+					for tile in g:
+						if tile.num == tile_num && tile.deck == deck_num && tile.color == rand_color:
+							var conns = []
+							conns.append(tile)
+							for conn in g[tile]["connections"]:
+								if conn["relation"] == Relations.STRAIGHT:
+									if conn["node"].num > tile_num && {"tile_num": conn["node"].num, "deck_num": conn["node"].deck} not in chosen_numbers_decks:
+										conns.append(conn["node"])
+										expand_straight(conn["node"], g, conns, rand_straight_len, chosen_numbers_decks)
+									elif conn["node"].num < tile_num && {"tile_num": conn["node"].num, "deck_num": conn["node"].deck} not in chosen_numbers_decks:
+										conns.push_front(conn["node"])
+										expand_straight(conn["node"], g, conns, rand_straight_len, chosen_numbers_decks)
+							if conns.size() >= rand_straight_len:
+								success = true
+								straight_array = conns
+								break
+							else:
+								break
+					tries += 1
+				if success == true:
+					for node in straight_array:
+						#TODO FIX THIS BECAUSE ITS TECHNICALLY LIMITING POOL TOO MUCH
+						chosen_numbers_decks.append({"tile_num": node.num, "deck_num": node.deck})
+					board.append(straight_array)
+					count -= rand_straight_len
+				else:
+					count -= 3
+		elif count == 3:
+			count -= 3
+		else:
+			count -= 1
+	return board
+
+func expand_straight(node: Object, g: Dictionary, total_conns: Array, max: int,  chosen_numbers_decks: Array) -> void:
+	if total_conns.size() > max:
+		return
+	for inner_node in g[node]["connections"]:
+		if inner_node["relation"] == Relations.STRAIGHT && inner_node["node"] not in total_conns:
+			if inner_node["node"].num < node.num && {"tile_num": inner_node["node"].num, "deck_num": inner_node["node"].deck} not in chosen_numbers_decks:
+				total_conns.push_front(inner_node["node"])
+				print("hello in recursion 1")
+				expand_straight(inner_node["node"], g, total_conns, max, chosen_numbers_decks)
+			if inner_node["node"].num > node.num && {"tile_num": inner_node["node"].num, "deck_num": inner_node["node"].deck} not in chosen_numbers_decks:
+				total_conns.append(inner_node["node"])
+				print("hello in recursion 2")
+				expand_straight(inner_node["node"], g, total_conns, max, chosen_numbers_decks)
