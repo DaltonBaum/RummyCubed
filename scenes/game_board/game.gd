@@ -3,6 +3,8 @@ extends Node2D
 @export_range(0, 100) var camera_bounds_percent := 25
 
 func _ready() -> void:
+	# Limit camera movement to prevent user from getting lost
+	# POORLY DONE, LIKELY NEEDS REWORK
 	var board_pos: Vector2 = %Board.global_position
 	var board_size: Vector2 = %Board.get_combined_minimum_size()
 	var camera_bounds_margin := get_window().size * camera_bounds_percent / 100

@@ -1,3 +1,8 @@
+# -------------------------
+# Poorly written/buggy implementation for a camera with mouse/keyboard
+# DO NOT COPY, ITS BAD
+# -------------------------
+
 extends Camera2D
 
 @export var start_zoom: float = 1
