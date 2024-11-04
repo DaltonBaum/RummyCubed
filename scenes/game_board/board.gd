@@ -31,15 +31,6 @@ func _ready() -> void:
 		tile_slot.tile_removed.connect(_tile_removed)
 		add_child(tile_slot)
 	
-	## Dummy tiles
-	#var a: Array[Array] = []
-	#for c in TileInfo.Colors.values():
-		#var b: Array[TileInfo] = []
-		#for i in range(1, 14):
-			#b.append(TileInfo.new(i, c))
-		#a.append(b)
-		#a.append(b)
-	#add_tile_groups(a)
 	var g = create_graph(13, 2, Colors.values())
 	var puzzle = select_tiles(g, 50)
 	var sum = 0
