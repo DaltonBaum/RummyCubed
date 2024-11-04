@@ -112,12 +112,12 @@ func _is_group_invalid(lower_index: int, upper_index: int) -> bool:
 	var relation := _get_relation(info1, old_info)
 	if relation == TileInfo.Relations.INVALID:
 		return true
-	var seen := {info1: null, old_info: null}
+	var seen := [info1, old_info]
 	for i in range(lower_index + 2, upper_index, 1):
 		var new_info: TileInfo = children[i].get_info()
-		if _get_relation(old_info, new_info) != relation or new_info in seen:
+		if _get_relation(old_info, new_info) != relation or new_info.same(seen):
 			return true
-		seen[new_info] = null
+		seen.append(new_info)
 		old_info = new_info
 	return false
 

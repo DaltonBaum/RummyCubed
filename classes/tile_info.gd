@@ -33,4 +33,12 @@ func get_color():
 	return _color_dict[color]
 
 func same(other) -> bool:
-	return self.num == other.num and self.color == other.color
+	if other is TileInfo:
+		return self.num == other.num and self.color == other.color
+	if other is Array:
+		for tile in other:
+			if self.num == tile.num and self.color == tile.color:
+				return true
+		return false
+	push_error("Unknown type", typeof(other))
+	return false
