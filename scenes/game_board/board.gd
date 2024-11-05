@@ -21,6 +21,17 @@ func _ready() -> void:
 	var g = create_graph(13, 2, TileInfo.Colors.values())
 	var selected_tiles = select_tiles(g, 10)
 	clear_graph(g, selected_tiles)
+	var tile_list = []
+	for node in g.keys():
+		tile_list.append(node)
+	var puzzle = traverse(g, tile_list)
+	print(puzzle)
+	
+	var tile_groups = []
+	for node in puzzle:
+		var group = []
+		 
+	
 
 # Method to call to place starting state on the board
 func add_tile_groups(groups: Array):
@@ -266,8 +277,11 @@ func clear_graph(og: Dictionary, selected_tiles: Array) -> void:
 		for conn in og[node]["connections"].keys():
 			if conn not in selected_tiles:
 				og[node]["connections"].erase(conn)
+			if node not in selected_tiles:
+				og[conn]["connections"].erase(node)
 		if node not in selected_tiles:
 			og.erase(node)
+			
 		else:
 			og[node]["relation"] = TileInfo.Relations.INVALID
 	for start in og:
@@ -284,5 +298,88 @@ func clear_graph(og: Dictionary, selected_tiles: Array) -> void:
 		for relation in range(3):
 			if counts[relation] < 2:
 				for end in groups[relation].keys():
-					og.erase(end)
 					og[start]["connections"].erase(end)
+
+func traverse(og: Dictionary, order: Array) -> Dictionary:
+	var g = {} #no connecitons
+	for node in og:
+		g[node] = {"relation": TileInfo.Relations.INVALID, "connections": {}}
+	for node in order:
+		var modifications = get_valid_changes(g, og, node)
+		update_with_max(g, modifications)
+	return g
+
+func get_valid_changes(g: Dictionary, og: Dictionary, node: Object) -> Array:
+	if og[node]["relation"] != TileInfo.Relations.INVALID:
+		return []
+	var modifications = []
+	
+	for conn in og[node]["connections"]:
+		var relation = og[node]["connections"][conn]["relation"]
+		var group = g[conn]["connections"]
+		if og[conn]["relation"] == relation and conn not in group:
+			print("hello")
+			for inner_node in group.keys():
+				if og[node]["connections"].has(inner_node):
+					modifications.append(Modification.new([node, inner_node], relation))
+	
+	for end1 in og[node]["connections"].keys():
+		if g[end1]["relation"] != TileInfo.Relations.INVALID:
+			continue
+		for end2 in og[end1]["connections"].keys():
+			if g[end1]["relation"] != TileInfo.Relations.INVALID or g[end1]["relation"] != g[end1]["relation"] or (end2.same(node) and end2.same(end1)):
+				continue
+			if og[node]["connections"].has(end1):
+				modifications.append(Modification.new([node, end1], og[node]["connections"][end1]["relation"]))
+			elif og[node]["connections"].has(end2):
+				modifications.append(Modification.new([node, end2], og[node]["connections"][end2]["relation"]))
+	return modifications
+	
+func update_with_max(g: Dictionary, modifications: Array) -> void:
+	if modifications.size() == 0:
+		return
+	var best_index = 0
+	var best_complexity = -INF
+	var i = 0
+	for mod in modifications:
+		g[mod.connection[0]]["connections"][mod.connection[1]] = {"relation" : mod.relation}
+		g[mod.connection[1]]["connections"][mod.connection[0]] = {"relation" : mod.relation}
+		var save1 = g[mod.connection[0]]["relation"]
+		var save2 = g[mod.connection[0]]["relation"]
+		g[mod.connection[0]]["relation"] = mod.relation
+		g[mod.connection[1]]["relation"] = mod.relation
+		var complexity = heuristic(g)
+		if complexity > best_complexity:
+			best_index = i
+			best_complexity = complexity
+		g[mod.connection[0]]["connections"].erase(mod.connection[1])
+		g[mod.connection[1]]["connections"].erase(mod.connection[0])
+		g[mod.connection[0]]["relation"] = save1
+		g[mod.connection[1]]["relation"] = save2
+	var best = modifications[best_index]
+	g[best.connection[0]]["connections"][best.connection[1]] = {"relation" : best.relation}
+	g[best.connection[1]]["connections"][best.connection[0]] = {"relation" : best.relation}
+	g[best.connection[0]]["relation"] = best.relation
+	g[best.connection[1]]["relation"] = best.relation
+
+func heuristic(g: Dictionary) -> int:
+	var edge_count = g.keys().size()
+	var group_sizes = []
+	for node in g:
+		group_sizes.append(g[node]["connections"].size())
+	
+	var edge_density_score = edge_count ** 1.5
+	var group_size_score = 0
+	for group_size in group_sizes:
+		group_size_score += group_size ** 1.2
+	
+	var set_count = 0
+	var run_count = 0
+	for node in g:
+		if g[node]["relation"] == TileInfo.Relations.SET:
+			set_count += 1
+		if g[node]["relation"] == TileInfo.Relations.RUN:
+			run_count += 1
+	var relation_variety_score = min(set_count, run_count) * 1.5
+	
+	return edge_density_score + group_size_score + relation_variety_score
