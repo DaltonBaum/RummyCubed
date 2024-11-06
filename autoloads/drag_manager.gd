@@ -76,6 +76,9 @@ func _reset_current() -> void:
 # Convert touch position from screen space to global world space
 # WILL THROW ERRORS IF THERE IS NO CAMERA2D
 func _get_pos_with_camera(pos: Vector2) -> Vector2:
+	var cam := get_viewport().get_camera_2d()
+	if cam == null:
+		return pos
 	return get_viewport().get_camera_2d().get_canvas_transform().affine_inverse() * pos
 
 # Is the manager currently handling a tile
