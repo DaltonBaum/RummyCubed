@@ -7,7 +7,6 @@ var tile_slot_scene := preload("res://scenes/game_board/tile_slot.tscn")
 
 var invalid_tiles := {}
 var board_valid := false
-var random_samples := 100
 
 func _ready() -> void:
 	columns = grid_width
@@ -22,16 +21,32 @@ func _ready() -> void:
 func add_tile_groups(groups: Array[Array]):
 	var row := 0
 	var column := 0
+	var singles: Array[TileInfo] = []
 	for group in groups:
+		if len(group) == 1:
+			singles.append(group[0])
+			continue
 		if len(group) + column > grid_width:
 			column = 0
-			row += 2
+			row += 1
+		group.sort_custom(func(a,b): return a.num < b.num)
 		for info: TileInfo in group:
 			var tile := tile_scene.instantiate()
 			tile.update_info(info)
 			get_child(row * grid_width + column).add_child(tile)
 			column += 1
 		column += 1
+	
+	row += 2
+	column = 0
+	for info in singles:
+		if column + 1 > grid_width:
+			column = 0
+			row += 1
+		var tile := tile_scene.instantiate()
+		tile.update_info(info)
+		get_child(row * grid_width + column).add_child(tile)
+		column += 2
 
 # The methods below use call_deferred to ensure the operating order for each frame is:
 # 1 - listen for all tile changes

@@ -13,4 +13,4 @@ func _ready() -> void:
 	%Camera.limit_right = board_pos.x + board_size.x + camera_bounds_margin.x
 	%Camera.limit_bottom = board_pos.y + board_size.y + camera_bounds_margin.y
 	%Camera.position = (board_pos + board_size) / 2
-	%Board.add_tile_groups(PuzzleGenerator.create_puzzle(30))
+	%Board.add_tile_groups(PuzzleGenerator.create_puzzle(200, 1694546302, 99, 4))

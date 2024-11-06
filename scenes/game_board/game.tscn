@@ -9,6 +9,8 @@ script = ExtResource("1_41cbx")
 
 [node name="Board" parent="." instance=ExtResource("1_sxlji")]
 unique_name_in_owner = true
+grid_width = 40
+grid_height = 10
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
