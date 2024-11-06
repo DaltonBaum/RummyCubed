@@ -5,10 +5,10 @@ static var default_nums := 13
 static var default_colors := TileInfo.Colors.values()
 static var default_decks := 2
 
-static func create_puzzle(size: int, nums := default_nums, decks := default_decks, colors := default_colors, seed = null) -> Array[Array]:
+static func create_puzzle(size: int, seed = null, nums := default_nums, decks := default_decks, colors := default_colors) -> Array[Array]:
 	if seed == null: randomize()
 	else: seed(hash(seed))
-	print_debug(seed)
+	print_debug("Puzzle seed is:", seed)
 	var g := _create_graph(nums, decks, colors)
 	var selected_tiles := _select_tiles(g, size)
 	selected_tiles.shuffle()
