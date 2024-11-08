@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dh3rj1bjap0oi"]
 
-[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://ui_theme.tres" id="1_fimh8"]
+[ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://resources/ui_theme.tres" id="1_fimh8"]
 [ext_resource type="Script" path="res://scenes/credits.gd" id="2_s6kuk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lbmt5"]
