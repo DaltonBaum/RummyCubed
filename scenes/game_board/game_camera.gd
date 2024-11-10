@@ -12,7 +12,6 @@ extends Camera2D
 @export var zoom_increment: Vector2 = Vector2(0.02, 0.02)
 @export var zoom_at_point: bool = true
 @export var move_while_zooming: bool = true
-@export var is_tile_dragging: bool = false
 
 # Variables for touch tracking and camera movement
 var last_pinch_distance: float = 0.0
@@ -33,7 +32,8 @@ func _process(delta: float):
 # Handle touch inputs for panning and pinch zooming
 func _input(event: InputEvent):
 	# Add handling to stop if a tile is currently being dragged
-	
+	if DragManager.is_currently_dragging() == true:
+		return
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
 			events[event.index] = event
