@@ -21,6 +21,9 @@ var is_flying: bool = false
 var duration: float = 0.0001
 var events = {}
 var vp_size = [500, 500]
+var debug_touch_point: Vector2 = Vector2()
+var debug_touch_active: bool = false
+var zooming: bool = false
 
 func _ready():
 	_update_viewport_size()
@@ -31,6 +34,20 @@ func _process(delta: float):
 
 # Handle touch inputs for panning and pinch zooming
 func _input(event: InputEvent):
+	# Toggle debug touch on key press (e.g., "D" key)
+	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_D:
+		debug_touch_active = !debug_touch_active
+		if debug_touch_active:
+			#print("Debug touch has started!")
+			debug_touch_point = get_viewport().size / 2  # Place in the center initially
+		else:
+			last_pinch_distance = 0  # Reset pinch distance when disabling debug touch
+		return
+		
+	# Handle drag for the debug touch
+	if debug_touch_active and event is InputEventMouseMotion:
+		debug_touch_point += event.relative
+	
 	# Add handling to stop if a tile is currently being dragged
 	if DragManager.is_currently_dragging() == true:
 		return
@@ -43,13 +60,16 @@ func _input(event: InputEvent):
 		else:
 			events.erase(event.index)
 			if events.is_empty():
-				_start_fling(event.position, last_pinch_distance)
+				if zooming:
+					zooming = false
+				else:
+					_start_fling(event.position, last_pinch_distance)
 
 	elif event is InputEventScreenDrag:
-		if events.size() == 1:
-			_pan_camera(event.relative)
-		elif events.size() > 1:
+		if events.size() > 1 or (events.size() == 1 and debug_touch_active):
 			_pinch_zoom_camera(event)
+		elif events.size() == 1:
+			_pan_camera(event.relative)
 
 # Camera panning based on a single touch drag
 func _pan_camera(delta: Vector2):
@@ -57,22 +77,23 @@ func _pan_camera(delta: Vector2):
 
 # Pinch zooming with multi-touch
 func _pinch_zoom_camera(event: InputEventScreenDrag):
+	zooming = true
 	var touch_points = events.values()
 	var p1 = touch_points[0].position
-	var p2 = touch_points[1].position
+	var p2 = debug_touch_point if debug_touch_active else touch_points[1].position
 	var pinch_distance = p1.distance_to(p2)
 	
 	if last_pinch_distance == 0:
 		last_pinch_distance = pinch_distance
 	if abs(pinch_distance - last_pinch_distance) > zoom_sensitivity:
-		var new_zoom = zoom + zoom_increment * (pinch_distance > last_pinch_distance if 1 else -1)
-		new_zoom = new_zoom.clamped(min_zoom, max_zoom)
+		#var new_zoom = zoom + zoom_increment * (1 if pinch_distance > last_pinch_distance else -1)
+		var new_zoom = Vector2(clamp(zoom.x + zoom_increment.x * (1 if pinch_distance > last_pinch_distance else -1), min_zoom, max_zoom),clamp(zoom.y + zoom_increment.y * (1 if pinch_distance > last_pinch_distance else -1), min_zoom, max_zoom))
 		zoom = new_zoom
 		last_pinch_distance = pinch_distance
 
 # Trigger fling effect if swipe was fast enough
 func _start_fling(end_position: Vector2, initial_distance: float):
-	if fling_action and (initial_distance >= min_fling_velocity):
+	if fling_action and (initial_distance >= min_fling_velocity) and zooming == false:
 		is_flying = true
 		duration = initial_distance / deceleration
 		velocity_x = end_position.x / duration
