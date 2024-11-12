@@ -4,5 +4,5 @@
 
 [node name="Board" type="GridContainer"]
 theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
+theme_override_constants/v_separation = 30
 script = ExtResource("1_4n8h1")
