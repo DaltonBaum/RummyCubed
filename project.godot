@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+PuzzleInfo="*res://autoloads/puzzle_info.gd"
 DragManager="*res://autoloads/drag_manager.gd"
 
 [display]

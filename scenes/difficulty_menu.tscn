@@ -73,4 +73,7 @@ size_flags_vertical = 3
 text = "Back"
 clip_text = true
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/EasyButton" to="." method="_on_easy_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MediumButton" to="." method="_on_medium_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ExitButton" to="." method="_on_exit_button_pressed"]

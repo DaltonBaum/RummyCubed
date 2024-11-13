@@ -10,7 +10,7 @@ script = ExtResource("1_41cbx")
 
 [node name="Board" parent="." instance=ExtResource("1_sxlji")]
 unique_name_in_owner = true
-grid_width = 40
+grid_width = 13
 grid_height = 10
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -31,6 +31,7 @@ grow_vertical = 2
 theme = ExtResource("4_bewl7")
 
 [node name="Stopwatch" type="Button" parent="UI/Control"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.3
