@@ -49,6 +49,12 @@ size_flags_vertical = 3
 text = "Settings"
 clip_text = true
 
+[node name="HowToPlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "How To Play"
+clip_text = true
+
 [node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -74,4 +80,6 @@ text = "Exit to Main Menu"
 clip_text = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/ExitButton" to="." method="_on_exit_button_pressed"]
