@@ -8,12 +8,15 @@ static var default_decks := 2
 static func create_puzzle(size_min: int, size_max: int, _seed: int, nums := default_nums, decks := default_decks, colors := default_colors) -> Array[Array]:
 	print_debug("Puzzle size is: ", size_min, "-", size_max, "\nPuzzle seed is: ", _seed)
 	seed(_seed)
-	var size := get_size(size_min, size_max)
-	var g := _create_graph(nums, decks, colors)
-	var selected_tiles := _select_tiles(g, size)
-	selected_tiles.shuffle()
-	var puzzle := _traverse(selected_tiles)
-	return puzzle.get_connected_components()
+	var connected_components: Array[Array] = []
+	while len(connected_components.filter(func(group): return len(group) == 1)) == 0:
+		var size := get_size(size_min, size_max)
+		var g := _create_graph(nums, decks, colors)
+		var selected_tiles := _select_tiles(g, size)
+		selected_tiles.shuffle()
+		var puzzle := _traverse(selected_tiles)
+		connected_components = puzzle.get_connected_components()
+	return connected_components
 
 static func get_size(size_min: int, size_max: int) -> int:
 	return randi_range(size_min, size_max)
