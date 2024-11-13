@@ -18,6 +18,7 @@ func _ready() -> void:
 	# Setup board
 	%Board.add_tile_groups(PuzzleGenerator.create_puzzle(PuzzleInfo.size_min, PuzzleInfo.size_max, PuzzleInfo.p_seed))
 	%Board.board_completed.connect(_on_board_complete)
+	completion_time = 0
 
 func _process(delta: float) -> void:
 	# Update stopwatch/display
