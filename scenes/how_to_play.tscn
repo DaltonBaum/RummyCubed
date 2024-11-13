@@ -41,7 +41,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_font_sizes/font_size = 24
-text = "You will be provided with a nearly complete rummikub board game with tiles placed into your hand. Your goal will be to place these tiles onto the game board such that you solve the game of rummikub. This can be done by either forming groups, run, or doing a combination of such and manipulating tiles to provide a valid game state.
+text = "You will be provided with a nearly complete board with tiles placed into your hand. Your goal will be to place these tiles onto the game board such that you solve the board. This can be done by either forming groups, run, or doing a combination of such and manipulating tiles to provide a valid game state.
 
 Good Luck!"
 horizontal_alignment = 1

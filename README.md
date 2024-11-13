@@ -1,1 +1,1 @@
-# Rummicub-Puzzle
+# Rummy<sup>3</sup>
