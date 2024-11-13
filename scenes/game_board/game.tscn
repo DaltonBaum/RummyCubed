@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/game_board/game.gd" id="1_41cbx"]
 [ext_resource type="PackedScene" uid="uid://dxu64ad742ahl" path="res://scenes/game_board/board.tscn" id="1_sxlji"]
-[ext_resource type="Script" path="res://scenes/game_board/game_camera_computer.gd" id="2_t2rl8"]
+[ext_resource type="Script" path="res://scenes/game_board/game_camera.gd" id="3_k80ka"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_41cbx")
@@ -16,7 +16,7 @@ grid_height = 10
 unique_name_in_owner = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
-script = ExtResource("2_t2rl8")
+script = ExtResource("3_k80ka")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
