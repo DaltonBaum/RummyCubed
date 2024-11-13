@@ -5,8 +5,8 @@ var info: TileInfo
 # Init since this is created with instantiate()
 func update_info(i: TileInfo):
 	info = i
-	%Label.text = str(info.num)
-	%Label.add_theme_color_override("font_color", info.get_color())
+	%Label.text = "[center][b]%d[/b][/center]" % [info.num]
+	%Label.add_theme_color_override("default_color", info.get_color())
 
 func _ready() -> void:
 	DragManager.drag_started.connect(_on_drag_start)

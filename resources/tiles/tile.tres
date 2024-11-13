@@ -12,5 +12,6 @@ corner_radius_top_left = 16
 corner_radius_bottom_right = 16
 
 [resource]
-Label/font_sizes/font_size = 64
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_t5kiw")
+RichTextLabel/font_sizes/bold_font_size = 56
+RichTextLabel/font_sizes/normal_font_size = 56
