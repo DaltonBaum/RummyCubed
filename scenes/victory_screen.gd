@@ -1,10 +1,8 @@
-extends ColorRect
+extends Control
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%TimeHolder.text = PuzzleInfo.format_time(PuzzleInfo.time_to_complete)
-
 
 
 func _on_continue_pressed() -> void:

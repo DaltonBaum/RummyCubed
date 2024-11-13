@@ -5,14 +5,14 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sp6g8"]
 
-[node name="Credits" type="ColorRect"]
+[node name="Credits" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fimh8")
-color = Color(0.92549, 0.886275, 0.815686, 1)
 script = ExtResource("2_s6kuk")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

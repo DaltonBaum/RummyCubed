@@ -1,4 +1,4 @@
-extends ColorRect
+extends Control
 
 
 func _on_easy_button_pressed() -> void:

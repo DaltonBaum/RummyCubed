@@ -5,14 +5,14 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oeysk"]
 
-[node name="Victory Screen" type="ColorRect"]
+[node name="Victory Screen" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_sar6t")
-color = Color(0.92549, 0.886275, 0.815686, 1)
 script = ExtResource("2_nbb0t")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
