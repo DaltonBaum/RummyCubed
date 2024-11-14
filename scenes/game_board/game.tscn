@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://deju5e7gik6gr"]
+[gd_scene load_steps=6 format=3 uid="uid://deju5e7gik6gr"]
 
 [ext_resource type="Script" path="res://scenes/game_board/game.gd" id="1_41cbx"]
 [ext_resource type="PackedScene" uid="uid://dxu64ad742ahl" path="res://scenes/game_board/board.tscn" id="1_sxlji"]
 [ext_resource type="Script" path="res://scenes/game_board/game_camera.gd" id="3_k80ka"]
 [ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://resources/ui_theme.tres" id="4_bewl7"]
+[ext_resource type="PackedScene" uid="uid://dsa8jptemtn63" path="res://scenes/pause_menu.tscn" id="5_ltpor"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_41cbx")
@@ -21,7 +22,8 @@ script = ExtResource("3_k80ka")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="UI"]
+[node name="Overlay" type="Control" parent="UI"]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_bewl7")
 
-[node name="Stopwatch" type="Button" parent="UI/Control"]
+[node name="Stopwatch" type="Button" parent="UI/Overlay"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
@@ -41,7 +43,7 @@ offset_top = 20.0
 button_mask = 0
 text = "00:00:00"
 
-[node name="Pause" type="Button" parent="UI/Control"]
+[node name="Pause" type="Button" parent="UI/Overlay"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.7
@@ -51,3 +53,28 @@ offset_top = 20.0
 offset_right = -20.0
 grow_horizontal = 0
 text = "Pause"
+
+[node name="PauseOverlay" type="Control" parent="UI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/PauseOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.92549, 0.886275, 0.815686, 1)
+
+[node name="PauseMenu" parent="UI/PauseOverlay" instance=ExtResource("5_ltpor")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[connection signal="pressed" from="UI/Overlay/Pause" to="." method="_on_pause_pressed"]
