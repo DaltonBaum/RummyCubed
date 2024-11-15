@@ -15,6 +15,8 @@ var _active_touches := {}
 var _current_node: Node = null
 var _current_parent: Node = null
 
+var disabled := false
+
 func _ready() -> void:
 	add_child(holder)
 
@@ -34,7 +36,7 @@ func _input(event):
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			_active_touches[event.index] = event.position
-			if _active_touches.size() == 1:
+			if _active_touches.size() == 1 and !disabled:
 				drag_started.emit(_get_pos_with_camera(event.position))
 			else:
 				_on_drag_cancel()
@@ -65,8 +67,9 @@ func _on_drag_end(pos: Vector2) -> void:
 
 # Cancels drag by sending node back to its original parent
 func _on_drag_cancel() -> void:
-	_current_node.reparent(_current_parent)
-	_reset_current()
+	if _current_node != null:
+		_current_node.reparent(_current_parent)
+		_reset_current()
 
 # Resets the data for the node being dragged
 func _reset_current() -> void:
@@ -84,3 +87,7 @@ func _get_pos_with_camera(pos: Vector2) -> Vector2:
 # Is the manager currently handling a tile
 func is_currently_dragging() -> bool:
 	return _current_node != null
+
+# Public function for canceling current drag
+func cancel_drag() -> void:
+	_on_drag_cancel()

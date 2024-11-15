@@ -3,29 +3,36 @@
 [ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://resources/ui_theme.tres" id="1_fimh8"]
 [ext_resource type="Script" path="res://scenes/credits.gd" id="2_s6kuk"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lbmt5"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sp6g8"]
 
-[node name="Credits" type="ColorRect"]
+[node name="Credits" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_fimh8")
-color = Color(0.92549, 0.886275, 0.815686, 1)
 script = ExtResource("2_s6kuk")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = 0.2
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sp6g8")
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -53,12 +60,15 @@ Austin Damek
 Hayden Schneider"
 horizontal_alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_lbmt5")
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sp6g8")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_stretch_ratio = 3.0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_bottom = 0
 

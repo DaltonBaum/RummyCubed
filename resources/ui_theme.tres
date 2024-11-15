@@ -1,7 +1,11 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://cqyvw8e6h0gt3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adabq"]
-draw_center = false
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.92549, 0.886275, 0.815686, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -45,4 +49,10 @@ MarginContainer/constants/margin_bottom = 50
 MarginContainer/constants/margin_left = 100
 MarginContainer/constants/margin_right = 100
 MarginContainer/constants/margin_top = 50
+RichTextLabel/colors/default_color = Color(0.192157, 0.211765, 0.219608, 1)
+RichTextLabel/colors/font_shadow_color = Color(0.345098, 0.545098, 0.545098, 1)
+RichTextLabel/constants/shadow_offset_x = 3
+RichTextLabel/constants/shadow_offset_y = 3
+RichTextLabel/font_sizes/bold_font_size = 64
+RichTextLabel/font_sizes/normal_font_size = 64
 VBoxContainer/constants/separation = 20

@@ -24,6 +24,7 @@ var vp_size = [500, 500]
 var debug_touch_point: Vector2 = Vector2()
 var debug_touch_active: bool = false
 var zooming: bool = false
+var disabled := false
 
 func _ready():
 	_update_viewport_size()
@@ -73,10 +74,14 @@ func _input(event: InputEvent):
 
 # Camera panning based on a single touch drag
 func _pan_camera(delta: Vector2):
+	if disabled:
+		return
 	position -= delta * zoom
 
 # Pinch zooming with multi-touch
 func _pinch_zoom_camera(event: InputEventScreenDrag):
+	if disabled:
+		return
 	zooming = true
 	var touch_points = events.values()
 	var p1 = touch_points[0].position
@@ -93,6 +98,8 @@ func _pinch_zoom_camera(event: InputEventScreenDrag):
 
 # Trigger fling effect if swipe was fast enough
 func _start_fling(end_position: Vector2, initial_distance: float):
+	if disabled:
+		return
 	if fling_action and (initial_distance >= min_fling_velocity) and zooming == false:
 		is_flying = true
 		duration = initial_distance / deceleration
@@ -101,6 +108,8 @@ func _start_fling(end_position: Vector2, initial_distance: float):
 
 # Decelerate fling over time
 func _fling_camera(vx: float, vy: float, delta: float):
+	if disabled:
+		return
 	duration -= delta
 	if duration > 0.0:
 		position += Vector2(vx, vy) * delta

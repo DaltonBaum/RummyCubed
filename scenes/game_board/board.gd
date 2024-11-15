@@ -1,5 +1,7 @@
 extends GridContainer
 
+signal board_completed
+
 @export var grid_width := 15
 @export var grid_height := 15
 var tile_scene := preload("res://scenes/game_board/tile.tscn")
@@ -128,6 +130,5 @@ func _get_relation(info1: TileInfo, info2: TileInfo) -> TileInfo.Relations:
 func _check_board() -> void:
 	if len(invalid_tiles) != 0 or DragManager.is_currently_dragging() or board_valid:
 		return
-	print("Valid Board")
-	#get_tree().change_scene_to_file("res://scenes/credits.tscn")
-	#board_valid = true
+	board_completed.emit()
+	board_valid = true

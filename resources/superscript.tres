@@ -1,0 +1,18 @@
+[gd_resource type="RichTextEffect" load_steps=2 format=3 uid="uid://b2lhu2bn8ir1f"]
+
+[sub_resource type="GDScript" id="GDScript_bpyhh"]
+script/source = "@tool
+extends RichTextEffect
+
+var bbcode = \"sup\"
+
+func _process_custom_fx(char_fx : CharFXTransform):
+
+	char_fx.offset = Vector2(0, char_fx.env.offset_y if char_fx.env.has(\"offset_y\") else -32)
+	char_fx.transform.x = Vector2(0.75, 0)
+	char_fx.transform.y = Vector2(0, 0.75)
+	return true
+"
+
+[resource]
+script = SubResource("GDScript_bpyhh")
