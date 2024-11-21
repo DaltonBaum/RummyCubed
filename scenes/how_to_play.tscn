@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://x6to6ffx8ukv"]
+[gd_scene load_steps=6 format=3 uid="uid://x6to6ffx8ukv"]
 
 [ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://resources/ui_theme.tres" id="1_jd5hw"]
 [ext_resource type="Script" path="res://scenes/how_to_play.gd" id="1_mlj0j"]
+[ext_resource type="Texture2D" uid="uid://bm73hykj8jc7v" path="res://scenes/groupExample.png" id="3_mu2oc"]
+[ext_resource type="Texture2D" uid="uid://b7yrcmiytpn0a" path="res://scenes/runExample.png" id="4_3pf1r"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrq13"]
 
@@ -41,10 +43,24 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_font_sizes/font_size = 24
-text = "You will be provided with a nearly complete board with tiles placed into your hand. Your goal will be to place these tiles onto the game board such that you solve the board. This can be done by either forming groups, run, or doing a combination of such and manipulating tiles to provide a valid game state.
+text = "Game Setup: You will be provided with a nearly complete board with tiles placed into your hand. Your goal will be to place these tiles onto the game board such that you solve the board. This can be done by either forming groups, run, or doing a combination of such and manipulating tiles to provide a valid game state.
+Rules: Your goal is to form valid sets from the tiles you are given until you have no more tiles in your hand.
+Valid sets include
+1. Runs
+2. Groups
+
+Runs contain consecutive increasing numbers with the same color of length 3 or greater.
+
+Run Example: 
+
+Groups contain the same number with different colors for each tile of lengths 3 or 4.
+
+Group Example: 
+
+
+Controls: To form these sets on the board, just use your finger to drag tiles into appropriate tile locations visible on the board.
 
 Good Luck!"
-horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
@@ -59,5 +75,15 @@ theme_override_constants/margin_bottom = 0
 [node name="Back-Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "Back"
+
+[node name="RunExample" type="Sprite2D" parent="MarginContainer/VBoxContainer"]
+position = Vector2(322, 883)
+scale = Vector2(0.472318, 0.406976)
+texture = ExtResource("3_mu2oc")
+
+[node name="GroupExample" type="Sprite2D" parent="MarginContainer/VBoxContainer"]
+position = Vector2(322, 706)
+scale = Vector2(0.472318, 0.406976)
+texture = ExtResource("4_3pf1r")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/Back-Button" to="." method="_on_back_button_pressed"]
