@@ -2,8 +2,9 @@ extends GridContainer
 
 signal board_completed
 
-@export var grid_width := 15
-@export var grid_height := 15
+@export var grid_width := 8	
+@export var grid_height := 20
+@export var enable_interaction := true
 var tile_scene := preload("res://scenes/game_board/tile.tscn")
 var tile_slot_scene := preload("res://scenes/game_board/tile_slot.tscn")
 
@@ -15,8 +16,10 @@ func _ready() -> void:
 	for i in grid_width * grid_height:
 		var tile_slot := tile_slot_scene.instantiate()
 		tile_slot.index = i
-		tile_slot.tile_added.connect(_tile_added)
-		tile_slot.tile_removed.connect(_tile_removed)
+		if enable_interaction:
+			tile_slot.tile_added.connect(_tile_added)
+			tile_slot.tile_removed.connect(_tile_removed)
+		tile_slot.enabled = enable_interaction
 		add_child(tile_slot)
 
 # Method to call to place starting state on the board
@@ -35,6 +38,7 @@ func add_tile_groups(groups: Array[Array]):
 		for info: TileInfo in group:
 			var tile := tile_scene.instantiate()
 			tile.update_info(info)
+			tile.enabled = enable_interaction
 			get_child(row * grid_width + column).add_child(tile)
 			column += 1
 		column += 1
@@ -47,6 +51,7 @@ func add_tile_groups(groups: Array[Array]):
 			row += 1
 		var tile := tile_scene.instantiate()
 		tile.update_info(info)
+		tile.enabled = enable_interaction
 		get_child(row * grid_width + column).add_child(tile)
 		column += 2
 

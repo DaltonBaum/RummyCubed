@@ -1,6 +1,7 @@
 extends PanelContainer
 
 var info: TileInfo
+var enabled := true
 
 # Init since this is created with instantiate()
 func update_info(i: TileInfo):
@@ -9,6 +10,7 @@ func update_info(i: TileInfo):
 	%Label.add_theme_color_override("default_color", info.get_color())
 
 func _ready() -> void:
+	if enabled:
 	DragManager.drag_started.connect(_on_drag_start)
 
 # Listener for when a drag is started
