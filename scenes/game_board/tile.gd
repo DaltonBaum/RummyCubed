@@ -11,7 +11,7 @@ func update_info(i: TileInfo):
 
 func _ready() -> void:
 	if enabled:
-	DragManager.drag_started.connect(_on_drag_start)
+		DragManager.drag_started.connect(_on_drag_start)
 
 # Listener for when a drag is started
 func _on_drag_start(pos: Vector2):
