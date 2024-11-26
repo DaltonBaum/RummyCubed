@@ -5,18 +5,25 @@ static var default_nums := 13
 static var default_colors := TileInfo.Colors.values()
 static var default_decks := 2
 
+# Creates a puzzle. Returns [one possible solution, the scrambled puzzle]
 static func create_puzzle(size_min: int, size_max: int, _seed: int, nums := default_nums, decks := default_decks, colors := default_colors) -> Array[Array]:
 	print_debug("Puzzle size is: ", size_min, "-", size_max, "\nPuzzle seed is: ", _seed)
 	seed(_seed)
-	var connected_components: Array[Array] = []
-	while len(connected_components.filter(func(group): return len(group) == 1)) == 0:
+	var solved_groups: Array[Array] = []
+	var scrambled_groups: Array[Array] = []
+	while len(scrambled_groups.filter(func(group): return len(group) == 1)) == 0:
 		var size := get_size(size_min, size_max)
 		var g := _create_graph(nums, decks, colors)
-		var selected_tiles := _select_tiles(g, size)
+		
+		solved_groups = _select_tiles(g, size)
+		var selected_tiles: Array[TileInfo] = []
+		for group in solved_groups:
+			selected_tiles.append_array(group)
+		
 		selected_tiles.shuffle()
 		var puzzle := _traverse(selected_tiles)
-		connected_components = puzzle.get_connected_components()
-	return connected_components
+		scrambled_groups = puzzle.get_connected_components()
+	return [solved_groups, scrambled_groups]
 
 static func get_size(size_min: int, size_max: int) -> int:
 	return randi_range(size_min, size_max)
@@ -45,8 +52,8 @@ static func _connect_graph(g: TileGraph) -> void:
 			elif node1.num == node2.num:
 				g.add_edge(node1, node2, TileInfo.Relations.SET)
 
-# Selects 'n' tiles from the graph which form valid groups
-static func _select_tiles(g: TileGraph, count: int) -> Array[TileInfo]:
+# Selects 'n' tiles from the graph which form valid groups. Returns this solved set of tiles
+static func _select_tiles(g: TileGraph, count: int) -> Array[Array]:
 	if count < 3:
 		push_error("Bad selection tile count")
 		return []
@@ -59,10 +66,7 @@ static func _select_tiles(g: TileGraph, count: int) -> Array[TileInfo]:
 	while count > 0:
 		_create_adjacent_tile(g, groups)
 		count -=1
-	var chosen_nodes: Array[TileInfo] = []
-	for group in groups:
-		chosen_nodes.append_array(group)
-	return chosen_nodes
+	return groups
 
 # Creates a group of 3 tiles from the TileGraph randomly
 static func _create_new_group(g: TileGraph) -> Array[TileInfo]:
@@ -227,6 +231,8 @@ static func _score_graph(g: TileGraph) -> float:
 	
 	# Penalize disconnected components, as they simplify the solution space
 	var disconnected_penalty: float = -len(group_sizes.filter(func(c): return c < 3))
+	
+	return set_count + run_count
 	
 	return (
 		edge_density_score +

@@ -1,17 +1,19 @@
 extends PanelContainer
 
-
 signal tile_added
 signal tile_removed
 
+
 var index := -1
+var enabled := true
 static var default_style := preload("res://resources/tiles/slot.tres")
 static var invalid_style := preload("res://resources/tiles/invalid_slot.tres")
 
 func _ready() -> void:
-	DragManager.drag_ended.connect(_on_drag_end)
-	child_entered_tree.connect(_on_child_enter)
-	child_exiting_tree.connect(_on_child_exit)
+	if enabled:
+		DragManager.drag_ended.connect(_on_drag_end)
+		child_entered_tree.connect(_on_child_enter)
+		child_exiting_tree.connect(_on_child_exit)
 
 # Listener for when a tile is dropped
 func _on_drag_end(pos: Vector2, node: Node, parent: Node) -> void:

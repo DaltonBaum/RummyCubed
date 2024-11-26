@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://scenes/game_board/tile_slot.gd" id="1_vvoty"]
 
 [node name="TileSlot" type="PanelContainer"]
-z_index = -1
 custom_minimum_size = Vector2(120, 150)
 offset_right = 30.0
 offset_bottom = 50.0

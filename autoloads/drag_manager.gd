@@ -18,6 +18,7 @@ var _current_parent: Node = null
 var disabled := false
 
 func _ready() -> void:
+	holder.z_index = 1
 	add_child(holder)
 
 # Smooths motion

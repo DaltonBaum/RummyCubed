@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsa8jptemtn63"]
+[gd_scene load_steps=7 format=3 uid="uid://dsa8jptemtn63"]
 
 [ext_resource type="Theme" uid="uid://cqyvw8e6h0gt3" path="res://resources/ui_theme.tres" id="1_rgyda"]
 [ext_resource type="Script" path="res://scenes/pause_menu.gd" id="2_qq1io"]
 [ext_resource type="PackedScene" uid="uid://x6to6ffx8ukv" path="res://scenes/how_to_play.tscn" id="3_f2p1f"]
 [ext_resource type="PackedScene" uid="uid://cfbcmp5fte3lt" path="res://scenes/settings.tscn" id="4_17k3s"]
+[ext_resource type="PackedScene" uid="uid://br88n0tckd55t" path="res://scenes/solution_menu.tscn" id="5_knbq2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r7bud"]
 
@@ -58,6 +59,12 @@ size_flags_vertical = 3
 text = "How To Play"
 clip_text = true
 
+[node name="ShowSolutionButton" type="Button" parent="PauseUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Show Solution"
+clip_text = true
+
 [node name="RestartButton" type="Button" parent="PauseUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -92,8 +99,14 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
+[node name="SolutionMenu" parent="." instance=ExtResource("5_knbq2")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="PauseUI/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseUI/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PauseUI/VBoxContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
+[connection signal="pressed" from="PauseUI/VBoxContainer/ShowSolutionButton" to="." method="_on_show_solution_button_pressed"]
 [connection signal="pressed" from="PauseUI/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="PauseUI/VBoxContainer/MarginContainer/ExitButton" to="." method="_on_exit_button_pressed"]

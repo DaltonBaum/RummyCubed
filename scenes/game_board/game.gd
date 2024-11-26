@@ -17,12 +17,14 @@ func _ready() -> void:
 	%Camera.position = (board_pos + board_size) / 2
 	
 	# Setup board
-	%Board.add_tile_groups(PuzzleGenerator.create_puzzle(PuzzleInfo.size_min, PuzzleInfo.size_max, PuzzleInfo.p_seed))
+	var puzzle := PuzzleGenerator.create_puzzle(PuzzleInfo.size_min, PuzzleInfo.size_max, PuzzleInfo.p_seed)
+	%Board.add_tile_groups(puzzle[1])
 	%Board.board_completed.connect(_on_board_complete)
 	completion_time = 0
 	
 	# Setup pause menu
 	DragManager.disabled = false
+	%PauseMenu.add_solution_groups(puzzle[0])
 	%PauseMenu.resume_pressed.connect(_on_pause_resumed)
 
 func _process(delta: float) -> void:
