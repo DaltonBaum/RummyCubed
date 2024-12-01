@@ -10,8 +10,8 @@ func add_solution_groups(groups: Array[Array]) -> void:
 	%Board.add_tile_groups(groups)
 	_trim_board()
 
+# Remove unused bottom layers of tile slots
 func _trim_board() -> void:
-	# Remove bottom
 	var children := %Board.get_children()
 	for row in range(%Board.grid_height-1, 0, -1):
 		var is_empty = true
@@ -25,8 +25,8 @@ func _trim_board() -> void:
 		for col in range(%Board.grid_width):
 			children[row * %Board.grid_width + col].free()
 
+# Resize solution board to fit on screen size
 func _on_board_holder_resized() -> void:
-	# Resize solution board to fit on screen size
 	var board_size: Vector2 = %Board.size
 	var holder_size: Vector2 = %BoardHolder.size
 	var scales := holder_size/board_size
