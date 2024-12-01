@@ -1,8 +1,8 @@
 extends Node
 
 var p_seed: int
-var size_min: int
-var size_max: int
+var size_min: int = 6
+var size_max: int = 6
 var time_to_complete: float
 
 func format_time(time: float, show_hundreths := false) -> String:

@@ -13,5 +13,6 @@ corner_radius_bottom_right = 16
 
 [resource]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_t5kiw")
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0)
 RichTextLabel/font_sizes/bold_font_size = 56
 RichTextLabel/font_sizes/normal_font_size = 56
