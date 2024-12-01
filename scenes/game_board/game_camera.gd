@@ -41,6 +41,8 @@ var dy: float = 0.0
 var zoomed_to_min = false
 var zoomed_to_max = false
 
+var disabled = false
+
 # Connects the viewport signal
 func _ready() -> void:
 	_on_viewport_size_changed()
@@ -176,6 +178,9 @@ func was_flinged(start_p: Vector2, end_p: Vector2, dt: float) -> bool:
 
 
 func fling(vx: float, vy: float, dt: float) -> void:
+	if disabled:
+		return
+		
 	duration -= dt
 	if duration > 0.0:
 		if position.x > valid_limit.size.x or position.x < valid_limit.position.x:
@@ -204,6 +209,10 @@ func finish_flying() -> void:
 	velocity_y = 0.0
 
 func apply_zoom(new_zoom: Vector2) -> void:
+	if disabled:
+		return
+
+
 	zoomed_to_min = false
 	zoomed_to_max = false
 
@@ -224,6 +233,9 @@ func apply_zoom(new_zoom: Vector2) -> void:
 
 
 func zoom_at(new_zoom: Vector2, point: Vector2) -> void:
+	if disabled:
+		return
+		
 	# In case the camera was flying, stops it
 	finish_flying()
 
