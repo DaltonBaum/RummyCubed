@@ -213,10 +213,9 @@ func zoom_at(new_zoom: Vector2, point: Vector2) -> void:
 	var zoom_diff: Vector2
 	zoom_diff = new_zoom - zoom
 
-	if anchor_mode == ANCHOR_MODE_DRAG_CENTER:
-		point -= vp_size/2
+	point -= vp_size/2
 
 	apply_zoom(new_zoom)
 
 	if !zoomed_to_min and !zoomed_to_max:
-		position -= (point * zoom_diff)
+		position += (point * zoom_diff)
