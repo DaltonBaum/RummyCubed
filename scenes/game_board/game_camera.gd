@@ -1,7 +1,5 @@
 extends Camera2D
 
-@export var stop_on_limit: bool = true
-@export var return_speed: float = 0.15
 @export var fling_action: bool = true
 @export var min_fling_velocity: float = 100.0
 @export var deceleration: float = 2500.0
@@ -9,17 +7,12 @@ extends Camera2D
 @export var max_zoom: float = 2
 @export var zoom_sensitivity: int = 5
 @export var zoom_increment: Vector2 = Vector2(0.02, 0.02)
-@export var zoom_at_point: bool = true
-@export var move_while_zooming: bool = false
 
 var last_pinch_distance: float = 0
 var events = {}
 
 # Viewport size
 var vp_size := Vector2.ZERO
-var limit_target := position
-var base_limits := Rect2(limit_left, limit_top, limit_right, limit_bottom)
-var valid_limit := Rect2(0, 0, 0, 0)
 
 # Initial velocity of the fling
 var velocity_x: float = 0.0
@@ -46,22 +39,16 @@ var disabled = false
 # Connects the viewport signal
 func _ready() -> void:
 	_on_viewport_size_changed()
-	calculate_valid_limits()
-	get_viewport().connect("size_changed", Callable(self, "_on_viewport_size_changed"))
-	set_stop_on_limit(stop_on_limit)
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
 
-func _process(_delta) -> void:
-	# Return camera to valid limits
-	if not stop_on_limit and events.size() == 0:
-		position = lerp(position, limit_target, return_speed)
-
+func _process(delta) -> void:
 	# If the camera is moving, update the duration
 	if is_moving:
-		duration += _delta
+		duration += delta
 
 	# If the camera is flying, set the next camera's position considering the velocity
 	if is_flying:
-		fling(velocity_x, velocity_y, _delta)
+		fling(velocity_x, velocity_y, delta)
 	
 	# Constrain camera position
 	var x = vp_size.x / 2 / zoom.x
@@ -140,12 +127,7 @@ func _input(event: InputEvent) -> void:
 				else:
 					new_zoom = zoom + zoom_increment * zoom
 
-				if zoom_at_point:
-					zoom_at(new_zoom, (p1 + p2) / 2)
-				else:
-					# Otherwise, just updates de camera's zoom
-					zoom_at(new_zoom, position)
-
+				zoom_at(new_zoom, (p1 + p2) / 2)
 				last_pinch_distance = pinch_distance
 
 
@@ -153,8 +135,6 @@ func _input(event: InputEvent) -> void:
 func _on_viewport_size_changed() -> void:
 	var viewport := get_viewport()
 	vp_size = viewport.get_visible_rect().size
-
-
 
 func was_flinged(start_p: Vector2, end_p: Vector2, dt: float) -> bool:
 	var vi: float = start_p.distance_to(end_p) / dt
@@ -174,12 +154,12 @@ func was_flinged(start_p: Vector2, end_p: Vector2, dt: float) -> bool:
 func fling(vx: float, vy: float, dt: float) -> void:
 	if disabled:
 		return
-		
+
 	duration -= dt
 	if duration > 0.0:
-		if position.x > valid_limit.size.x or position.x < valid_limit.position.x:
+		if position.x > limit_right or position.x < limit_left:
 			dx = velocity_x / 0.2
-		if position.y > valid_limit.size.y or position.y < valid_limit.position.y:
+		if position.y > limit_bottom or position.y < limit_top:
 			dy = velocity_y / 0.2
 
 		# Calculates the next camera's position for both axis
@@ -187,7 +167,7 @@ func fling(vx: float, vy: float, dt: float) -> void:
 		var npy = position.y + vy * dt
 
 		# Moves the camera to the next position
-		update_position(Vector2(npx, npy))
+		position = Vector2(npx, npy)
 
 		# Calculates the next velocity for both axis considering the deceleration
 		velocity_x = vx - dx * dt
@@ -206,7 +186,6 @@ func apply_zoom(new_zoom: Vector2) -> void:
 	if disabled:
 		return
 
-
 	zoomed_to_min = false
 	zoomed_to_max = false
 
@@ -222,8 +201,6 @@ func apply_zoom(new_zoom: Vector2) -> void:
 
 	new_zoom.x = clamp(new_zoom.x, min_zoom, max_zoom)
 	zoom = Vector2.ONE * new_zoom.x
-
-	calculate_valid_limits()
 
 
 func zoom_at(new_zoom: Vector2, point: Vector2) -> void:
@@ -242,53 +219,4 @@ func zoom_at(new_zoom: Vector2, point: Vector2) -> void:
 	apply_zoom(new_zoom)
 
 	if !zoomed_to_min and !zoomed_to_max:
-		update_position(position - (point * zoom_diff))
-
-
-# Returns if the camera's position is out of the valid limit
-func is_camera_out_of_limit() -> bool:
-	return (position.x < valid_limit.position.x
-				or position.x > valid_limit.size.x
-				or position.y < valid_limit.position.y
-				or position.y > valid_limit.size.y)
-
-
-func calculate_valid_limits() -> void:
-	var offset: Vector2
-	valid_limit.position = base_limits.position
-	valid_limit.size = base_limits.size
-
-	if anchor_mode == ANCHOR_MODE_DRAG_CENTER:
-		offset = vp_size / 2
-		valid_limit.position += offset * zoom
-
-	elif anchor_mode == ANCHOR_MODE_FIXED_TOP_LEFT:
-		offset = vp_size
-
-	valid_limit.size -= offset * zoom
-
-
-# Sets the camera's position making sure it stays between the limits
-func update_position(new_position: Vector2) -> void:
-	if stop_on_limit:
-		position.x = clamp(new_position.x, valid_limit.position.x, valid_limit.size.x)
-		position.y = clamp(new_position.y, valid_limit.position.y, valid_limit.size.y)
-
-	else:
-		position.x = new_position.x
-		position.y = new_position.y
-		limit_target.x = clamp(new_position.x, valid_limit.position.x, valid_limit.size.x)
-		limit_target.y = clamp(new_position.y, valid_limit.position.y, valid_limit.size.y)
-
-func set_stop_on_limit(stop: bool) -> void:
-	stop_on_limit = stop
-	if stop_on_limit:
-		limit_left = base_limits.position.x as int
-		limit_top = base_limits.position.y as int
-		limit_right = base_limits.size.x as int
-		limit_bottom = base_limits.size.y as int
-	else:
-		limit_left = -10000000
-		limit_top = -10000000
-		limit_right = 10000000
-		limit_bottom = 10000000
+		position -= (point * zoom_diff)
