@@ -24,6 +24,18 @@ func _ready() -> void:
 
 # Method to call to place starting state on the board
 func add_tile_groups(groups: Array[Array]):
+	# Sort & make groups fit on board
+	var i := 0
+	while i < len(groups):
+		var group_len := len(groups[i])
+		groups[i].sort_custom(func(a,b): return a.num < b.num)
+		if group_len <= grid_width:
+			i += 1
+			continue
+		groups.append(groups[i].slice(group_len-3, group_len))
+		groups[i].resize(group_len-3)
+	
+	# Add groups
 	var row := 0
 	var column := 0
 	var singles: Array[TileInfo] = []
@@ -34,7 +46,6 @@ func add_tile_groups(groups: Array[Array]):
 		if len(group) + column > grid_width:
 			column = 0
 			row += 1
-		group.sort_custom(func(a,b): return a.num < b.num)
 		for info: TileInfo in group:
 			var tile := tile_scene.instantiate()
 			tile.update_info(info)
@@ -43,6 +54,7 @@ func add_tile_groups(groups: Array[Array]):
 			column += 1
 		column += 1
 	
+	# Add invalid single tiles
 	row += 2
 	column = 0
 	for info in singles:
