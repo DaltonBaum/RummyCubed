@@ -119,7 +119,7 @@ func _input(event: InputEvent) -> void:
 			events[event.index] = event
 
 		if events.size() == 1 and !DragManager.is_currently_dragging() and !disabled:
-			position -= event.relative * zoom
+			position -= event.relative / zoom
 
 		if events.size() > 1:
 			# Stores the touches position
