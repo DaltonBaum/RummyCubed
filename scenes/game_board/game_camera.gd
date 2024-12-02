@@ -142,9 +142,9 @@ func _input(event: InputEvent) -> void:
 			if abs(pinch_distance - last_pinch_distance) > zoom_sensitivity:
 				var new_zoom: Vector2
 				if (pinch_distance < last_pinch_distance):
-					new_zoom = zoom + zoom_increment * zoom
-				else:
 					new_zoom = zoom - zoom_increment * zoom
+				else:
+					new_zoom = zoom + zoom_increment * zoom
 
 				if zoom_at_point:
 					zoom_at(new_zoom, (p1 + p2) / 2)
