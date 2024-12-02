@@ -32,7 +32,6 @@ func _on_board_holder_resized() -> void:
 	var scales := holder_size/board_size
 	var min_scale: float = min(scales.x, scales.y)
 	%Board.scale = Vector2(min_scale, min_scale)
-	board_size.x
 	%Board.position = Vector2((holder_size.x - board_size.x * min_scale) / 2, 0)
 	print(board_size)
 	print(holder_size)

@@ -215,28 +215,33 @@ static func update_with_max(g: TileGraph, modifications: Array[Modification]) ->
 
 # Scores a graph based on desired and undesired criteria
 static func _score_graph(g: TileGraph) -> float:
-	var edge_count := g.get_edge_count()
-	var group_sizes: Array = g.get_connected_components().map(len)
-	
-	# Reward for higher edge density and larger group sizes
-	var edge_density_score := float(edge_count) ** 1.5
-	var group_size_score := 0.0
-	for group_size in group_sizes:
-		group_size_score += float(group_size) ** 1.2
-
-	# Count relation types and assign higher scores for a mix of types
 	var set_count := g.get_nodes(TileInfo.Relations.SET).size()
 	var run_count := g.get_nodes(TileInfo.Relations.RUN).size()
-	var relation_variety_score := float(min(set_count, run_count)) * 1.5
-	
-	# Penalize disconnected components, as they simplify the solution space
-	var disconnected_penalty: float = -len(group_sizes.filter(func(c): return c < 3))
-	
+
 	return set_count + run_count
-	
-	return (
-		edge_density_score +
-		group_size_score +
-		relation_variety_score +
-		disconnected_penalty
-	)
+
+# Old scoring function, testing determined that it yielded worse puzzles
+#static func _score_graph(g: TileGraph) -> float:
+	#var edge_count := g.get_edge_count()
+	#var group_sizes: Array = g.get_connected_components().map(len)
+	#
+	## Reward for higher edge density and larger group sizes
+	#var edge_density_score := float(edge_count) ** 1.5
+	#var group_size_score := 0.0
+	#for group_size in group_sizes:
+		#group_size_score += float(group_size) ** 1.2
+#
+	## Count relation types and assign higher scores for a mix of types
+	#var set_count := g.get_nodes(TileInfo.Relations.SET).size()
+	#var run_count := g.get_nodes(TileInfo.Relations.RUN).size()
+	#var relation_variety_score := float(min(set_count, run_count)) * 1.5
+	#
+	## Penalize disconnected components, as they simplify the solution space
+	#var disconnected_penalty: float = -len(group_sizes.filter(func(c): return c < 3))
+	#
+	#return (
+		#edge_density_score +
+		#group_size_score +
+		#relation_variety_score +
+		#disconnected_penalty
+	#)
