@@ -20,7 +20,7 @@ func _on_how_to_play_button_pressed() -> void:
 	%HowToPlay.visible = true
 
 func _on_credits_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/Credits.tscn")
+	get_tree().change_scene_to_file("res://scenes/credits.tscn")
 
 func _hide_menu() -> void:
 	%MainMenuUI.visible = false
