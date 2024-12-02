@@ -118,7 +118,7 @@ func _input(event: InputEvent) -> void:
 		if last_pos.distance_to(event.position) > zoom_sensitivity:
 			events[event.index] = event
 
-		if events.size() == 1 and !DragManager.is_currently_dragging():
+		if events.size() == 1 and !DragManager.is_currently_dragging() and !disabled:
 			position -= event.relative * zoom
 
 		if events.size() > 1:
