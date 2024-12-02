@@ -70,22 +70,17 @@ func _process(_delta) -> void:
 	position.y = clamp(position.y, limit_top+y, limit_bottom-y)
 
 func _input(event: InputEvent) -> void:
-	# Add handling to stop if a tile is currently being dragged
-	if DragManager.is_currently_dragging() == true:
-		return
-
 	if event is InputEventScreenTouch:
 		var i = event.index
 
 		if event.is_pressed():
 			events[i] = event
 			# If there is more than one finger at the screen, ignores the fling action
-			if events.size() > 1:
-				ignore_fling = true
+			ignore_fling = events.size() > 1 or !DragManager.is_currently_dragging()
 
 			# Sets the camera as moving if the fling action is activated
 			is_moving = fling_action
-			if events.size() == 1:
+			if events.size() == 1 and !DragManager.is_currently_dragging():
 				# Stores the event start position to calculate the velocity later
 				start_position = event.position
 				end_position = start_position
@@ -118,14 +113,13 @@ func _input(event: InputEvent) -> void:
 			duration = 0.0001
 			start_position = end_position
 			end_position = event.position
-			
 
 		var last_pos: Vector2 = events[event.index].position
 		if last_pos.distance_to(event.position) > zoom_sensitivity:
 			events[event.index] = event
 
-		if events.size() == 1:
-			update_position(position - event.relative * zoom)
+		if events.size() == 1 and !DragManager.is_currently_dragging():
+			position -= event.relative * zoom
 
 		if events.size() > 1:
 			# Stores the touches position
