@@ -34,8 +34,8 @@ func _process(delta: float) -> void:
 		%Stopwatch.text = PuzzleInfo.format_time(completion_time)
 
 func _on_board_complete() -> void:
-	var tree := get_tree()
-	if tree != null:
+	if is_inside_tree():
+		var tree := get_tree()
 		PuzzleInfo.time_to_complete = completion_time
 		tree.change_scene_to_file("res://scenes/victory_screen.tscn")
 
