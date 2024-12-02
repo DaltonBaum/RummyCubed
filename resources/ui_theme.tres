@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cqyvw8e6h0gt3"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cqyvw8e6h0gt3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adabq"]
 content_margin_left = 20.0
@@ -23,6 +23,75 @@ color = Color(0.635294, 0.517647, 0.592157, 1)
 grow_begin = 50.0
 grow_end = 50.0
 thickness = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lf1gb"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.345098, 0.545098, 0.545098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55hj4"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.345098, 0.545098, 0.545098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpdb4"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.635294, 0.517647, 0.592157, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_er7ld"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+bg_color = Color(0.192157, 0.211765, 0.219608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4c4x4"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.192157, 0.211765, 0.219608, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [resource]
 Button/colors/font_color = Color(0.192157, 0.211765, 0.219608, 1)
@@ -56,3 +125,8 @@ RichTextLabel/constants/shadow_offset_y = 3
 RichTextLabel/font_sizes/bold_font_size = 64
 RichTextLabel/font_sizes/normal_font_size = 64
 VBoxContainer/constants/separation = 20
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_lf1gb")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_55hj4")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_xpdb4")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_er7ld")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_4c4x4")

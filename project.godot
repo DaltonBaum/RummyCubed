@@ -13,6 +13,9 @@ config_version=5
 config/name="Rummy3"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
+boot_splash/bg_color=Color(0.92549, 0.886275, 0.815686, 1)
+boot_splash/image="res://rummycubedicon.png"
+boot_splash/fullsize=false
 config/icon="res://rummycubedicon.png"
 
 [autoload]
