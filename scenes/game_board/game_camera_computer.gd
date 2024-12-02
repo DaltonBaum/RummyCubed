@@ -36,3 +36,10 @@ func _input(event: InputEvent) -> void:
 					position -= Vector2(pan_speed, 0) / zoom
 				KEY_D:
 					position -= Vector2(-pan_speed, 0) / zoom
+
+func _process(delta: float) -> void:
+	var x = get_viewport().size.x / 2 / zoom.x
+	var y = get_viewport().size.y / 2 / zoom.y
+	position.x = clamp(position.x, limit_left+x, limit_right-x)
+	position.y = clamp(position.y, limit_top+y, limit_bottom-y)
+	
