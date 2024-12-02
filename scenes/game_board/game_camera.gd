@@ -32,8 +32,8 @@ func _ready():
 func _process(delta: float):
 	if is_flying:
 		_fling_camera(velocity_x, velocity_y, delta)
-	var x = zoom.x*vp_size.x/2
-	var y = zoom.y*vp_size.y/2
+	var x = vp_size.x / 2 / zoom.x
+	var y = vp_size.y / 2 / zoom.y
 	position.x = clamp(position.x, limit_left+x, limit_right-x)
 	position.y = clamp(position.y, limit_top+y, limit_bottom-y)
 
